@@ -5,35 +5,24 @@ import common.ListNode;
 public class AddTwoNumbers {
 
     public class Solution {
-        public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-            ListNode head = null;
-            ListNode prev = null;
-            int carry = 0;
-            while (l1 != null || l2 != null) {
-                int i1 = l1 == null ? 0 : l1.val;
-                int i2 = l2 == null ? 0 : l2.val;
-                int sum = i1 + i2 + carry;
-                ListNode node = new ListNode(sum % 10);
-                carry = sum / 10;
-                if (prev == null) {
-                    head = prev = node;
-                } else {
-                    prev.next = node;
-                    prev = node;
-                }
-                if (l1 != null) {
-                    l1 = l1.next;
-                }
-                if (l2 != null) {
-                    l2 = l2.next;
-                }
-            }
-            if (carry > 0) {
-                prev.next = new ListNode(carry);
-            }
-            return head;
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode prev = new ListNode(0);
+        ListNode head = prev;
+        int carry = 0;
+        while (l1 != null || l2 != null || carry != 0) {
+            ListNode cur = new ListNode(0);
+            int sum = ((l2 == null) ? 0 : l2.val) + ((l1 == null) ? 0 : l1.val) + carry;
+            cur.val = sum % 10;
+            carry = sum / 10;
+            prev.next = cur;
+            prev = cur;
+            
+            l1 = (l1 == null) ? l1 : l1.next;
+            l2 = (l2 == null) ? l2 : l2.next;
         }
+        return head.next;
     }
+}
 
     public static class UnitTest {
 
